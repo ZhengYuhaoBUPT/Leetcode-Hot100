@@ -5,21 +5,33 @@ class Solution(object):
         :rtype: int
         """
         
-        # three pointers
-        left, right = 0, len(height) - 1
-        sum_volumn = 0
-        left_volumn, right_volumn = height[left], height[right]
-        
-        while left < right:
-            left_volumn = max(left_volumn, height[left])
-            right_volumn = max(right_volumn, height[right])
+        # have the length
+        n = len(height)
+        # initialize two pointers
+        left, right = 0, n - 1
+        # get the max_height of the left and right
+        max_left, max_right = height[left], height[right]
+        # total volumn
+        volumn = 0
 
-            # move mid
-            if height[right] > height[left]:
-                sum_volumn += left_volumn - height[left]
+        # do the loop while left < right
+        # for left: if the next height is bigger, change height
+        # else if is smaller, add the volumn
+        # and we always do the smaller one between right and left.
+        while left < right:
+            # left is smaller, change left
+            if max_left < max_right:
                 left += 1
+                # add the volumn for the left index 
+                volumn += max(0, max_left - height[left])
+                # change the height
+                max_left = max(max_left, height[left])
+            # same to the right
             else:
-                sum_volumn += right_volumn - height[right]
                 right -= 1
-                
-        return sum_volumn
+                # add the volumn for the left index 
+                volumn += max(0, max_right - height[right])
+                # change the height
+                max_right = max(max_right, height[right])
+
+        return volumn
