@@ -5,20 +5,25 @@ class Solution(object):
         :rtype: int
         """
         
-        # hash
+        # first we need to create a set for the sub string
         exist = set()
+        # second we need to create the right side of the window
+        right = 0
+        # create the initial length
+        length = 0
+        # initialze the string s length
         n = len(s)
 
-        # pointers
-        ans, right = 0, 0
-
-        for i in range(n):
-
+        # do the loop to find substring length
+        for left in range(n):
+            # do the right
             while right < n and s[right] not in exist:
                 exist.add(s[right])
                 right += 1
-
-            ans = max(ans, right - i)
-            exist.remove(s[i])
-
-        return ans
+            
+            length = max(length, right - left)
+            
+            # pop the left
+            exist.remove(s[left])
+        
+        return length
