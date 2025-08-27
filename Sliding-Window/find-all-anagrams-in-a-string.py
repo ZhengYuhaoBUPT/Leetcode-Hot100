@@ -5,26 +5,34 @@ class Solution(object):
         :type p: str
         :rtype: List[int]
         """
-        s_len, p_len = len(s), len(p)
         
-        if s_len < p_len:
+        # initialize the length
+        len_s, len_p = len(s), len(p)
+        # if p is bigger, just return
+        if len_p > len_s:
             return []
-
-        ans = []
+        # answer list
+        answer = []
+        # initialize the string list with 26 letters
         s_count = [0] * 26
         p_count = [0] * 26
-        for i in range(p_len):
+        # do the loop for the first several letters
+        for i in range(len_p):
             s_count[ord(s[i]) - 97] += 1
             p_count[ord(p[i]) - 97] += 1
-
+        # if the first equal, add
         if s_count == p_count:
-            ans.append(0)
+            answer.append(0)
 
-        for i in range(s_len - p_len):
+        # do the other loop
+        for i in range(len_s - len_p):
+            # erease now and append next
             s_count[ord(s[i]) - 97] -= 1
-            s_count[ord(s[i + p_len]) - 97] += 1
-            
-            if s_count == p_count:
-                ans.append(i + 1)
+            s_count[ord(s[i + len_p]) - 97] += 1
 
-        return ans
+            # if equal then append
+            if s_count == p_count:
+                answer.append(i + 1)
+
+        return answer
+        
