@@ -27,7 +27,7 @@ class Solution(object):
         # do the loop for other
         for i in range(k,n):
             # we need to pop the biggest if exit the window
-            while q[0] <= i - k:
+            while q and q[0] <= i - k:
                 q.popleft()
             # if bigger, pop the later
             while q and nums[i] >= nums[q[-1]]:
