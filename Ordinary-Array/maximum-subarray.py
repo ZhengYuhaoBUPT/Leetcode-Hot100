@@ -5,19 +5,17 @@ class Solution(object):
         :rtype: int
         """
         
-        # ans = -inf
-        # min_pre_sum = presum = 0
-        # for x in nums:
-        #     presum += x
-        #     ans = max(ans, presum - min_pre_sum)
-        #     min_pre_sum = min(min_pre_sum, presum)
+        # get the length
+        length = len(nums)
+        # initialize a list for recording the length at this time
+        len_list = [0] * length
+        # first add the 0 index
+        len_list[0] = nums[0]
 
-        # return ans
+        # do the loop to find the max length
+        for i in range(1,length):
+            # if the sum before is smaller than 0, then skip
+            # else, we need the number before
+            len_list[i] = max(len_list[i-1],0) + nums[i]
 
-        f = [0] * len(nums)
-        f[0] = nums[0]
-
-        for i in range(1, len(nums)):
-            f[i] = max(f[i-1], 0) + nums[i]
-
-        return max(f)
+        return max(len_list)
