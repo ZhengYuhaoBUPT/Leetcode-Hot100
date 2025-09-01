@@ -4,15 +4,21 @@ class Solution(object):
         :type intervals: List[List[int]]
         :rtype: List[List[int]]
         """
-        intervals.sort(key=lambda x: x[0])
+        
+        # first sort the intervals by the first index
+        # of every list []
+        intervals.sort(key=lambda x:x[0])
+        # initialize ans
+        ans = []
 
-        merged = []
+        # do the loop in the intervals
         for interval in intervals:
-            # 如果列表为空，或者当前区间与上一区间不重合，直接添加
-            if not merged or merged[-1][1] < interval[0]:
-                merged.append(interval)
+            # if there's no ans and not have the same lap
+            if not ans or ans[-1][1] < interval[0]:
+                ans.append(interval)
+            # else we need to overlap the interval
             else:
-                # 否则的话，我们就可以与上一区间进行合并
-                merged[-1][1] = max(merged[-1][1], interval[1])
-
-        return merged
+                # the last number in ans
+                # have the largest number between the numbers
+                ans[-1][1] = max(ans[-1][1],interval[1])
+        return ans
