@@ -5,20 +5,23 @@ class Solution(object):
         :rtype: List[int]
         """
         
+        # we use left and right list to solve the problem
+        # initialize the length
         length = len(nums)
-
-        L, R, answer = [0]*length, [0]*length, [0]*length
-
-        L[0] = 1
+        # initialize the list and answer
+        left, right, answer = [0] * length, [0] * length, [0] * length
         
-        for i in range(1, length):
-            L[i] = nums[i-1] * L[i-1]
-
-        R[length - 1] = 1
-        for i in reversed(range(length - 1)):
-            R[i] = nums[i+1] * R[i+1]
-
+        # do the loop to find the answer
+        # we need the answer[i] = left * right[i]
+        # so left[i] do not have i, have the left index
+        # and right[i] do not have i, have the right index
+        left[0], right[length-1] = 1, 1
+        for i in range(1,length):
+            left[i] = nums[i-1] * left[i-1]
+            right[length-1-i] = nums[length-1-i+1] * right[length-1-i+1]
+        
+        # get the answer
         for i in range(length):
-            answer[i] = L[i] * R[i]
-
+            answer[i] = left[i] * right[i]
+        
         return answer
