@@ -4,30 +4,33 @@ class Solution(object):
         :type matrix: List[List[int]]
         :rtype: List[int]
         """
-        
-        if not matrix or not matrix[0]:
-            return list()
 
-        rows, columns = len(matrix), len(matrix[0])
-        visited = [[False] * columns for _ in range(rows)]
+        # initialize the row and column
+        rows, cols = len(matrix), len(matrix[0])
+        # initialize the answer list
+        answers = []
+        # we need to get the total number
+        total = rows * cols
+        # initialize the directions
+        directions = [[0, 1], [1, 0], [0, -1], [-1, 0]]
+        # initialize the visited number
+        visited = [[False] * cols for _ in range(rows)]
 
-        total = rows * columns
-        results = []
-
-        row, column = 0, 0
-        
-        direction = [[0, 1], [1, 0], [0, -1], [-1, 0]]
+        # initialize
+        row, col = 0, 0
         directionIndex = 0
-        
+        # do the loop
         for i in range(total):
-            results.append(matrix[row][column])
-            visited[row][column] = True
-
-            nextrow, nextcolumn = row + direction[directionIndex][0], column + direction[directionIndex][1]
-            if not (0 <= nextrow < rows and 0 <= nextcolumn < columns and not visited[nextrow][nextcolumn]):
+            # choose the direction
+            answers.append(matrix[row][col])
+            visited[row][col] = True
+            # judge the next if can use
+            nextrow, nextcol = row + directions[directionIndex][0], col + directions[directionIndex][1]
+            if not (0 <= nextrow < rows and 0 <= nextcol < cols and not visited[nextrow][nextcol]):
+                # we can not use this
                 directionIndex = (directionIndex + 1) % 4
-
-            row += direction[directionIndex][0]
-            column += direction[directionIndex][1]
+            # get the correct row and col
+            row += directions[directionIndex][0]
+            col += directions[directionIndex][1]
             
-        return results
+        return answers

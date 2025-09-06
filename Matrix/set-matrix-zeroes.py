@@ -5,16 +5,19 @@ class Solution(object):
         :rtype: None Do not return anything, modify matrix in-place instead.
         """
         
-        m, n = len(matrix), len(matrix[0])
-        row, col = [False] * m, [False] * n
+        # initialize the row and colomn
+        row, col = len(matrix), len(matrix[0])
+        # initialize bool judgement
+        row_judge, col_judge = [False] * row, [False] * col
 
-        for i in range(m):
-            for j in range(n):
+        # do the loop to find the 0
+        for i in range(row):
+            for j in range(col):
                 if matrix[i][j] == 0:
-                    row[i] = col[j] = True
-        
-        for i in range(m):
-            for j in range(n):
-                if row[i] or col[j]:
+                    row_judge[i] = col_judge[j] = True
+            
+        # revise the matrix
+        for i in range(row):
+            for j in range(col):
+                if row_judge[i] or col_judge[j]:
                     matrix[i][j] = 0
-                    
