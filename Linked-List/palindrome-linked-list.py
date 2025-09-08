@@ -5,10 +5,11 @@ class Solution(object):
         :rtype: bool
         """
         
-        vals = []
-        current_head = head
-        while current_head:
-            vals.append(current_head.val)
-            current_head = current_head.next
-        
-        return vals == vals[::-1]
+        # palindrome
+        # record as a list
+        answer = []
+        # do the forward to record
+        while head != None:
+            answer.append(head.val)
+            head = head.next
+        return answer == answer[::-1]
